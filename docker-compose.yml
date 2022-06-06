@@ -1,0 +1,12 @@
+version: "3"
+
+
+services:
+
+  nginx:
+    build: .
+    ports:
+      - 80:80
+
+  api:
+    build: ./api
