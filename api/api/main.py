@@ -1,5 +1,3 @@
-import uvicorn
-
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -27,5 +25,3 @@ async def get_counter() -> int:
 
 
 api.include_router(router)
-
-# uvicorn.run(api, host="localhost", port=8000)
