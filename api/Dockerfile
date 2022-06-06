@@ -1,9 +1,17 @@
 FROM python:3.10
 
-RUN pip install --upgrade pip
+WORKDIR /workspace
 
-ADD requirements.txt api/main.py ./
-RUN pip install -r requirements.txt
+RUN apt update -y \
+    && apt install -y curl
+
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - \
+    && $HOME/.poetry/bin/poetry config virtualenvs.create false
+
+ADD poetry.lock pyproject.toml ./
+RUN $HOME/.poetry/bin/poetry install
+
+ADD api .
 
 ENTRYPOINT ["uvicorn"]
 CMD ["main:api", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
