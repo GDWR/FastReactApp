@@ -9,9 +9,10 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
     && $HOME/.poetry/bin/poetry config virtualenvs.create false
 
 ADD poetry.lock pyproject.toml ./
-RUN $HOME/.poetry/bin/poetry install
+RUN $HOME/.poetry/bin/poetry install --no-root 
 
 ADD api ./api
+RUN $HOME/.poetry/bin/poetry install
 
 ENTRYPOINT ["uvicorn"]
 CMD ["main:api", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
