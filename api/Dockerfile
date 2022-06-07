@@ -11,7 +11,7 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 ADD poetry.lock pyproject.toml ./
 RUN $HOME/.poetry/bin/poetry install
 
-ADD api .
+ADD api ./api
 
 ENTRYPOINT ["uvicorn"]
 CMD ["main:api", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
